@@ -1,4 +1,7 @@
+using FluentAssertions.Common;
 using hotel_management_API.Models;
+using hotel_management_API.Service.Interface;
+using hotel_management_API.Service.Service;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,7 +13,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     )
 );
 
+
 // Add services to the container.
+builder.Services.AddScoped<IRoomService, RoomService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
