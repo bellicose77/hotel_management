@@ -5,7 +5,7 @@ namespace hotel_management_API.Models;
 
 public partial class Guest
 {
-    public int GuestId { get; set; }
+    public int Id { get; set; }
 
     public string FirstName { get; set; } = null!;
 

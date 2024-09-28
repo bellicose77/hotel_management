@@ -43,14 +43,14 @@ namespace hotel_management_API.Controllers
         public async Task<ActionResult<Room>> CreateRoom(Room room)
         {
             await _roomService.CreateRoomAsync(room);
-            return CreatedAtAction(nameof(GetRoom), new { id = room.RoomId }, room);
+            return CreatedAtAction(nameof(GetRoom), new { id = room.Id }, room);
         }
 
         // PUT: api/Rooms/5
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateRoom(int id, Room room)
         {
-            if (id != room.RoomId)
+            if (id != room.Id)
             {
                 return BadRequest();
             }

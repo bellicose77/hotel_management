@@ -5,7 +5,7 @@ namespace hotel_management_API.Models;
 
 public partial class Room
 {
-    public int RoomId { get; set; }
+    public int Id { get; set; }
 
     public string RoomNumber { get; set; } = null!;
 

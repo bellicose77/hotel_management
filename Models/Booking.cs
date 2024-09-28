@@ -5,7 +5,7 @@ namespace hotel_management_API.Models;
 
 public partial class Booking
 {
-    public int BookingId { get; set; }
+    public int Id { get; set; }
 
     public int? RoomId { get; set; }
 
@@ -24,8 +24,6 @@ public partial class Booking
     public DateTime? CreatedAt { get; set; }
 
     public virtual Guest? Guest { get; set; }
-
-    public virtual ICollection<Payment> Payments { get; set; } = new List<Payment>();
 
     public virtual Room? Room { get; set; }
 
