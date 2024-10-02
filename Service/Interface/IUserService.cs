@@ -6,5 +6,6 @@ namespace hotel_management_API.Service.Interface
     public interface IUserService
     {
         Task<User> RegisterUser(RegisterUserDto registerUserDto);
+        Task<object> LogIn(LogInDto logInDto);
     }
 }
