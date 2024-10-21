@@ -1,4 +1,5 @@
 ﻿using hotel_management_API.Models;
+using hotel_management_API.Models.DTO;
 
 namespace hotel_management_API.Service.Interface
 {
@@ -6,7 +7,7 @@ namespace hotel_management_API.Service.Interface
     {
         Task<IEnumerable<Room>> GetAllRoomsAsync();
         Task<Room?> GetRoomByIdAsync(int roomId);
-        Task<Room> CreateRoomAsync(Room room);
+        Task<Room> CreateRoomAsync(RoomDto room);
         Task UpdateRoomAsync(Room room);
         Task DeleteRoomAsync(int roomId);
     }

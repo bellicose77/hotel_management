@@ -17,13 +17,14 @@ namespace hotel_management_API.Service.Service
 
         public async Task<object> LogIn(LogInDto logInDto)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == logInDto.Email);
+            //var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == logInDto.Email);
 
-            if (user == null || !VerifyPassword(logInDto.Password, user.PasswordHash))
-            {
-                throw new Exception("Invalid email or password.");
-            }
-            var token=GenerateJwtToken()
+            //if (user == null || !VerifyPassword(logInDto.Password, user.PasswordHash))
+            //{
+            //    throw new Exception("Invalid email or password.");
+            //}
+            //var token = GenerateJwtToken();
+            return null;
         }
 
         public async Task<User> RegisterUser(RegisterUserDto userDto)

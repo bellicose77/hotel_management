@@ -1,4 +1,5 @@
 ﻿using hotel_management_API.Models;
+using hotel_management_API.Models.DTO;
 using hotel_management_API.Service.Interface;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,11 +24,28 @@ namespace hotel_management_API.Service.Service
             return await _context.Rooms.FindAsync(roomId);
         }
 
-        public async Task<Room> CreateRoomAsync(Room room)
+        public async Task<Room> CreateRoomAsync(RoomDto dto)
         {
-            _context.Rooms.Add(room);
-            await _context.SaveChangesAsync();
-            return room;
+            try
+            {
+                Room room = new Room()
+                {
+                    Id = dto.Id,
+                    PricePerNight = dto.PricePerNight,
+                    RoomNumber = dto.RoomNumber,
+                    Capacity = dto.Capacity,
+                    RoomType = dto.RoomType,
+                    Status = dto.Status,
+                };
+                _context.Rooms.Add(room);
+                await _context.SaveChangesAsync();
+                return room;
+            }
+            catch(Exception ex)
+            {
+                return null;
+            }
+            
         }
 
         public async Task UpdateRoomAsync(Room room)

@@ -1,4 +1,5 @@
 ﻿using hotel_management_API.Models;
+using hotel_management_API.Models.DTO;
 using hotel_management_API.Service.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -40,7 +41,7 @@ namespace hotel_management_API.Controllers
 
         // POST: api/Rooms
         [HttpPost]
-        public async Task<ActionResult<Room>> CreateRoom(Room room)
+        public async Task<ActionResult<Room>> CreateRoom(RoomDto room)
         {
             await _roomService.CreateRoomAsync(room);
             return CreatedAtAction(nameof(GetRoom), new { id = room.Id }, room);
