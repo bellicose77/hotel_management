@@ -62,10 +62,10 @@ namespace hotel_management_API.Service.Service
                     return false;
                 }
                 room.PricePerNight = dto.PricePerNight;
-                room.RoomNumber = dto.RoomNumber;
+                //room.RoomNumber = dto.RoomNumber;
                 room.Capacity = dto.Capacity;
                 room.RoomType = dto.RoomType;
-                room.Status = dto.Status;   
+                //room.Status = dto.Status;   
                 _context.Rooms.Update(room);
                 await _context.SaveChangesAsync();
                 return true;
