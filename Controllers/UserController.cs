@@ -15,6 +15,7 @@ namespace hotel_management_API.Controllers
         {
             _userService = userService;
         }
+
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterUserDto userDto)
         {
@@ -22,9 +23,31 @@ namespace hotel_management_API.Controllers
             {
                 return BadRequest(ModelState);
             }
+            try
+            {
+                var user = await _userService.RegisterUser(userDto);
+                return Ok(user);
+            }
+            catch (Exception ex) { 
+                return BadRequest(ex.Message);
+            }
+        }
 
-            var user = await _userService.RegisterUser(userDto);
-            return Ok(user);
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody]LogInDto logInDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                var token = await _userService.LogIn(logInDto);
+                return Ok(token);
+            }
+            catch (Exception ex) {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

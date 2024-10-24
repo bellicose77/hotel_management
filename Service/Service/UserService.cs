@@ -3,6 +3,7 @@ using hotel_management_API.Models;
 using hotel_management_API.Service.Interface;
 using System;
 using Microsoft.EntityFrameworkCore;
+using hotel_management_API.Utility;
 
 namespace hotel_management_API.Service.Service
 {
@@ -17,14 +18,21 @@ namespace hotel_management_API.Service.Service
 
         public async Task<object> LogIn(LogInDto logInDto)
         {
-            //var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == logInDto.Email);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == logInDto.Email);
 
-            //if (user == null || !VerifyPassword(logInDto.Password, user.PasswordHash))
-            //{
-            //    throw new Exception("Invalid email or password.");
-            //}
-            //var token = GenerateJwtToken();
-            return null;
+            if (user == null || !VerifyPassword(logInDto.Password, user.PasswordHash))
+            {
+                throw new Exception("Invalid email or password.");
+            }
+            TokenHelper tokenHelper = new TokenHelper();
+            var token = tokenHelper.GenerateJwtToken(user);
+            if (token == null)
+            {
+                throw new Exception("Failed to generate token.");
+            }
+            return new{
+                access_token = token.Result
+            };
         }
 
         public async Task<User> RegisterUser(RegisterUserDto userDto)
@@ -32,14 +40,12 @@ namespace hotel_management_API.Service.Service
             var hashedPassword = HashPassword(userDto.Password);
             var user = new User
             {
-                Username = userDto.Username,
                 Email = userDto.Email,
                 PasswordHash = hashedPassword,
                 FirstName = userDto.FirstName,
                 LastName = userDto.LastName,
-                RoleId = userDto.RoleId,
-                UserType = userDto.UserType,
-                Status = true,
+                PhoneNumber = userDto.PhoneNumber,
+                Address = userDto.Address,
                 CreatedAt = DateTime.UtcNow,
             };
 

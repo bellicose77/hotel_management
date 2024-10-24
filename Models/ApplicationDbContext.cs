@@ -22,8 +22,6 @@ public partial class ApplicationDbContext : DbContext
 
     public virtual DbSet<Review> Reviews { get; set; }
 
-    public virtual DbSet<Role> Roles { get; set; }
-
     public virtual DbSet<Room> Rooms { get; set; }
 
     public virtual DbSet<Roomservice> Roomservices { get; set; }
@@ -34,7 +32,7 @@ public partial class ApplicationDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseMySql("server=localhost;database=hotel_management;user=root;password=1234;port=3306", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.30-mysql"));
+        => optionsBuilder.UseMySql("server=localhost;database=hotel_management;user=root;port=3306", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.30-mysql"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -66,9 +64,9 @@ public partial class ApplicationDbContext : DbContext
                 .HasForeignKey(d => d.GuestId)
                 .HasConstraintName("bookings_ibfk_2");
 
-            entity.HasOne(d => d.Room).WithMany(p => p.Bookings)
-                .HasForeignKey(d => d.RoomId)
-                .HasConstraintName("bookings_ibfk_1");
+            //entity.HasOne(d => d.Room).WithMany(p => p.Bookings)
+            //    .HasForeignKey(d => d.RoomId)
+            //    .HasConstraintName("bookings_ibfk_1");
         });
 
         modelBuilder.Entity<Guest>(entity =>
@@ -109,29 +107,11 @@ public partial class ApplicationDbContext : DbContext
                 .HasForeignKey(d => d.GuestId)
                 .HasConstraintName("reviews_ibfk_2");
 
-            entity.HasOne(d => d.Room).WithMany(p => p.Reviews)
-                .HasForeignKey(d => d.RoomId)
-                .HasConstraintName("reviews_ibfk_1");
+            //entity.HasOne(d => d.Room).WithMany(p => p.Reviews)
+            //    .HasForeignKey(d => d.RoomId)
+            //    .HasConstraintName("reviews_ibfk_1");
         });
 
-        modelBuilder.Entity<Role>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PRIMARY");
-
-            entity.ToTable("roles");
-
-            entity.HasIndex(e => e.RoleName, "RoleName").IsUnique();
-
-            entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("CURRENT_TIMESTAMP")
-                .HasColumnType("timestamp");
-            entity.Property(e => e.Description).HasMaxLength(255);
-            entity.Property(e => e.RoleName).HasMaxLength(50);
-            entity.Property(e => e.UpdatedAt)
-                .ValueGeneratedOnAddOrUpdate()
-                .HasDefaultValueSql("CURRENT_TIMESTAMP")
-                .HasColumnType("timestamp");
-        });
 
         modelBuilder.Entity<Room>(entity =>
         {
@@ -141,9 +121,9 @@ public partial class ApplicationDbContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.PricePerNight).HasPrecision(10, 2);
-            entity.Property(e => e.RoomNumber).HasMaxLength(10);
+            entity.Property(e => e.Description).HasMaxLength(500);
             entity.Property(e => e.RoomType).HasMaxLength(50);
-            entity.Property(e => e.Status).HasMaxLength(20);
+            entity.Property(e => e.Capacity).HasColumnName("capacity");
         });
 
         modelBuilder.Entity<Roomservice>(entity =>
@@ -193,10 +173,6 @@ public partial class ApplicationDbContext : DbContext
 
             entity.HasIndex(e => e.Email, "Email").IsUnique();
 
-            entity.HasIndex(e => e.RoleId, "FK_Role");
-
-            entity.HasIndex(e => e.Username, "Username").IsUnique();
-
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("timestamp");
@@ -204,17 +180,13 @@ public partial class ApplicationDbContext : DbContext
             entity.Property(e => e.FirstName).HasMaxLength(50);
             entity.Property(e => e.LastLoginAt).HasColumnType("timestamp");
             entity.Property(e => e.LastName).HasMaxLength(50);
+            entity.Property(e => e.PhoneNumber).HasMaxLength(15);
+            entity.Property(e => e.Address).HasMaxLength(50);
             entity.Property(e => e.PasswordHash).HasMaxLength(255);
             entity.Property(e => e.UpdatedAt)
                 .ValueGeneratedOnAddOrUpdate()
                 .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("timestamp");
-            entity.Property(e => e.Username).HasMaxLength(50);
-
-            entity.HasOne(d => d.Role).WithMany(p => p.Users)
-                .HasForeignKey(d => d.RoleId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Role");
         });
 
         OnModelCreatingPartial(modelBuilder);
