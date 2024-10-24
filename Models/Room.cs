@@ -14,4 +14,5 @@ public partial class Room
     public decimal PricePerNight { get; set; }
 
     public string Description { get; set; }
+    public string Image { get; set; }
 }
