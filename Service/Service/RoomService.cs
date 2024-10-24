@@ -19,6 +19,11 @@ namespace hotel_management_API.Service.Service
             return await _context.Rooms.ToListAsync();
         }
 
+        public async Task<IEnumerable<String>> GetAllRoomTypes()
+        {
+            return await _context.Rooms.Select(e => e.RoomType).ToListAsync();
+        }
+
         public async Task<Room?> GetRoomByIdAsync(int roomId)
         {
             return await _context.Rooms.FindAsync(roomId);
@@ -35,6 +40,7 @@ namespace hotel_management_API.Service.Service
                     Capacity = dto.Capacity,
                     RoomType = dto.RoomType,
                     Description = dto.Description,
+                    Image = dto.Image
                 };
                 _context.Rooms.Add(room);
                 await _context.SaveChangesAsync();

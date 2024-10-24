@@ -10,5 +10,6 @@ namespace hotel_management_API.Service.Interface
         Task<Room> CreateRoomAsync(RoomDto room);
         Task UpdateRoomAsync(Room room);
         Task DeleteRoomAsync(int roomId);
+        Task<IEnumerable<String>> GetAllRoomTypes();
     }
 }

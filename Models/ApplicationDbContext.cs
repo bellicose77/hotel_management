@@ -122,6 +122,7 @@ public partial class ApplicationDbContext : DbContext
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.PricePerNight).HasPrecision(10, 2);
             entity.Property(e => e.Description).HasMaxLength(500);
+            entity.Property(e => e.Image).HasMaxLength(50);
             entity.Property(e => e.RoomType).HasMaxLength(50);
             entity.Property(e => e.Capacity).HasColumnName("capacity");
         });

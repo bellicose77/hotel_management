@@ -25,6 +25,12 @@ namespace hotel_management_API.Controllers
             return Ok(await _roomService.GetAllRoomsAsync());
         }
 
+        [HttpGet("roomtype")]
+        public async Task<ActionResult<IEnumerable<String>>> GetRoomType()
+        {
+            return Ok(await _roomService.GetAllRoomTypes());
+        }
+
         // GET: api/Rooms/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Room>> GetRoom(int id)
