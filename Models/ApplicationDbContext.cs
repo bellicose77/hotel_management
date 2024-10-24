@@ -59,10 +59,12 @@ public partial class ApplicationDbContext : DbContext
             entity.Property(e => e.PaymentStatus).HasMaxLength(50);
             entity.Property(e => e.RoomId).HasColumnName("RoomID");
             entity.Property(e => e.TotalAmount).HasPrecision(10, 2);
+            entity.Property(e => e.CheckInDate).HasColumnName("CheckInDate");
+            entity.Property(e => e.CheckOutDate).HasColumnName("CheckOutDate");
 
-            entity.HasOne(d => d.Guest).WithMany(p => p.Bookings)
-                .HasForeignKey(d => d.GuestId)
-                .HasConstraintName("bookings_ibfk_2");
+            //entity.HasOne(d => d.Guest).WithMany(p => p.Bookings)
+            //    .HasForeignKey(d => d.GuestId)
+            //    .HasConstraintName("bookings_ibfk_2");
 
             //entity.HasOne(d => d.Room).WithMany(p => p.Bookings)
             //    .HasForeignKey(d => d.RoomId)
@@ -143,9 +145,9 @@ public partial class ApplicationDbContext : DbContext
                 .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("timestamp");
 
-            entity.HasOne(d => d.Booking).WithMany(p => p.Roomservices)
-                .HasForeignKey(d => d.BookingId)
-                .HasConstraintName("roomservices_ibfk_1");
+            //entity.HasOne(d => d.Booking).WithMany(p => p.Roomservices)
+            //    .HasForeignKey(d => d.BookingId)
+            //    .HasConstraintName("roomservices_ibfk_1");
         });
 
         modelBuilder.Entity<Staff>(entity =>
