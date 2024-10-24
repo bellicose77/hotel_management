@@ -32,10 +32,9 @@ namespace hotel_management_API.Service.Service
                 {
                     Id = dto.Id,
                     PricePerNight = dto.PricePerNight,
-                    RoomNumber = dto.RoomNumber,
                     Capacity = dto.Capacity,
                     RoomType = dto.RoomType,
-                    Status = dto.Status,
+                    Description = dto.Description,
                 };
                 _context.Rooms.Add(room);
                 await _context.SaveChangesAsync();
