@@ -23,9 +23,9 @@ public partial class Booking
 
     public DateTime? CreatedAt { get; set; }
 
-    public virtual Guest? Guest { get; set; }
+    //public virtual Guest? Guest { get; set; }
 
-    public virtual Room? Room { get; set; }
+    //public virtual Room? Room { get; set; }
 
-    public virtual ICollection<Roomservice> Roomservices { get; set; } = new List<Roomservice>();
+    //public virtual ICollection<Roomservice> Roomservices { get; set; } = new List<Roomservice>();
 }
