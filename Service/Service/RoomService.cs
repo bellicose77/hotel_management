@@ -48,10 +48,28 @@ namespace hotel_management_API.Service.Service
             
         }
 
-        public async Task UpdateRoomAsync(Room room)
+        public async Task<bool> UpdateRoomAsync(RoomDto dto)
         {
-            _context.Rooms.Update(room);
-            await _context.SaveChangesAsync();
+            try
+            {
+                Room? room = await _context.Rooms.Where(r => r.Id == dto.Id).FirstOrDefaultAsync();
+                if (room == null) { 
+                    return false;
+                }
+                room.PricePerNight = dto.PricePerNight;
+                room.RoomNumber = dto.RoomNumber;
+                room.Capacity = dto.Capacity;
+                room.RoomType = dto.RoomType;
+                room.Status = dto.Status;   
+                _context.Rooms.Update(room);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+           
         }
 
         public async Task DeleteRoomAsync(int roomId)
