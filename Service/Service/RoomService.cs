@@ -24,9 +24,26 @@ namespace hotel_management_API.Service.Service
             return await _context.Rooms.Select(e => e.RoomType).ToListAsync();
         }
 
-        public async Task<Room?> GetRoomByIdAsync(int roomId)
+        public async Task<RoomDetailsDto?> GetRoomByIdAsync(int roomId)
         {
-            return await _context.Rooms.FindAsync(roomId);
+            return await (from room in _context.Rooms join roomDetails in _context.RoomDetails
+                                on room.Id equals roomDetails.RoomId
+                                where room.Id == roomId
+                                select new RoomDetailsDto
+                                {
+                                    PricePerNight = room.PricePerNight,
+                                    RoomType = room.RoomType,
+                                    Wifi = roomDetails.Wifi,
+                                    Description = room.Description,
+                                    Bed = roomDetails.Bed,
+                                    Capacity = room.Capacity,
+                                    AirConditioning = roomDetails.AirConditioning,
+                                    Tv = roomDetails.Tv,
+                                    RoomService = roomDetails.RoomService,
+                                    Laundry = roomDetails.Laundry,
+                                    CoffeeMaker = roomDetails.CoffeeMaker,
+                                    Image = room.Image
+                                }).FirstOrDefaultAsync();
         }
 
         public async Task<Room> CreateRoomAsync(RoomDto dto)

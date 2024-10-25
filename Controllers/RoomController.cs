@@ -33,7 +33,7 @@ namespace hotel_management_API.Controllers
 
         // GET: api/Rooms/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Room>> GetRoom(int id)
+        public async Task<ActionResult<RoomDetailsDto>> GetRoom(int id)
         {
             var room = await _roomService.GetRoomByIdAsync(id);
 
