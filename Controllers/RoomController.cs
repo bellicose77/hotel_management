@@ -55,16 +55,19 @@ namespace hotel_management_API.Controllers
 
         // PUT: api/Rooms/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateRoom(int id, Room room)
+        public async Task<IActionResult> UpdateRoom(int id, RoomDto dto)
         {
-            if (id != room.Id)
+            if (id != dto.Id)
             {
                 return BadRequest();
             }
 
             try
             {
-                await _roomService.UpdateRoomAsync(room);
+                if( await _roomService.UpdateRoomAsync(dto))
+                {
+                    return Ok();
+                }
             }
             catch (DbUpdateConcurrencyException)
             {

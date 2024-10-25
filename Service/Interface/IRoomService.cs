@@ -8,7 +8,7 @@ namespace hotel_management_API.Service.Interface
         Task<IEnumerable<Room>> GetAllRoomsAsync();
         Task<RoomDetailsDto?> GetRoomByIdAsync(int roomId);
         Task<Room> CreateRoomAsync(RoomDto room);
-        Task UpdateRoomAsync(Room room);
+        Task<bool> UpdateRoomAsync(RoomDto room);
         Task DeleteRoomAsync(int roomId);
         Task<IEnumerable<String>> GetAllRoomTypes();
     }
