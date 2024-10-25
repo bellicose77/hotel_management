@@ -6,7 +6,7 @@ namespace hotel_management_API.Service.Interface
     public interface IRoomService
     {
         Task<IEnumerable<Room>> GetAllRoomsAsync();
-        Task<Room?> GetRoomByIdAsync(int roomId);
+        Task<RoomDetailsDto?> GetRoomByIdAsync(int roomId);
         Task<Room> CreateRoomAsync(RoomDto room);
         Task<bool> UpdateRoomAsync(RoomDto room);
         Task DeleteRoomAsync(int roomId);

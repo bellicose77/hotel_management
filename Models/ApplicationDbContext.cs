@@ -30,6 +30,8 @@ public partial class ApplicationDbContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
+    public virtual DbSet<RoomDetails> RoomDetails { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseMySql("server=localhost;database=hotel_management;password=1234;user=root;port=3306", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.30-mysql"));
@@ -114,6 +116,22 @@ public partial class ApplicationDbContext : DbContext
             //    .HasConstraintName("reviews_ibfk_1");
         });
 
+        modelBuilder.Entity<RoomDetails>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PRIMARY");
+
+            entity.ToTable("roomdetails");
+
+            entity.Property(e => e.Id).HasColumnName("ID");
+            entity.Property(e => e.RoomId).HasPrecision(10, 2);
+            entity.Property(e => e.Tv).HasMaxLength(20);
+            entity.Property(e => e.RoomService).HasMaxLength(20);
+            entity.Property(e => e.Wifi).HasColumnName("Wifi");
+            entity.Property(e => e.CoffeeMaker).HasColumnName("CoffeeMaker");
+            entity.Property(e => e.Laundry).HasColumnName("Laundry");
+            entity.Property(e => e.Bed).HasColumnName("bed");
+            entity.Property(e => e.AirConditioning).HasColumnName("AirConditioning");
+        });
 
         modelBuilder.Entity<Room>(entity =>
         {
