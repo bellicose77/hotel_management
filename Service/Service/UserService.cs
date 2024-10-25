@@ -4,6 +4,7 @@ using hotel_management_API.Service.Interface;
 using System;
 using Microsoft.EntityFrameworkCore;
 using hotel_management_API.Utility;
+using Microsoft.IdentityModel.Tokens;
 
 namespace hotel_management_API.Service.Service
 {
@@ -16,9 +17,11 @@ namespace hotel_management_API.Service.Service
             _context = context;
         }
 
-        public async Task<object> LogIn(LogInDto logInDto)
+        public async Task<LoginResponseDto> LogIn(LogInDto logInDto)
         {
+            LoginResponseDto response = new LoginResponseDto();
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == logInDto.Email);
+       
 
             if (user == null || !VerifyPassword(logInDto.Password, user.PasswordHash))
             {
@@ -29,10 +32,15 @@ namespace hotel_management_API.Service.Service
             if (token == null)
             {
                 throw new Exception("Failed to generate token.");
+                
             }
-            return new{
-                access_token = token.Result
+            response = new LoginResponseDto
+            {
+                token = token.ToString(),
+                Name = user.FirstName + " " + user.LastName,
+                //Role = user.Role,
             };
+            return response;
         }
 
         public async Task<User> RegisterUser(RegisterUserDto userDto)

@@ -42,8 +42,8 @@ namespace hotel_management_API.Controllers
             }
             try
             {
-                var token = await _userService.LogIn(logInDto);
-                return Ok(token);
+                var resut = await _userService.LogIn(logInDto);
+                return Ok(resut);
             }
             catch (Exception ex) {
                 return BadRequest(ex.Message);
