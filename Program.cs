@@ -36,6 +36,7 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddScoped<IRoomService, RoomService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IBookingService, BookingService>();
+builder.Services.AddScoped<IDashboardService,DashboardService>();
 
 builder.Services.AddCors(options =>
 {
