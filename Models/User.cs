@@ -24,4 +24,5 @@ public partial class User
     public DateTime? UpdatedAt { get; set; }
 
     public DateTime? LastLoginAt { get; set; }
+    public String Role { get; set; }
 }

@@ -38,7 +38,7 @@ namespace hotel_management_API.Service.Service
             {
                 token = token.ToString(),
                 Name = user.FirstName + " " + user.LastName,
-                //Role = user.Role,
+                Role = user.Role,
             };
             return response;
         }

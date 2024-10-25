@@ -4,7 +4,7 @@
     {
         public string? token { get; set; }
         public string? Name {  get; set; }
-        public int? Role { get; set; }
+        public string? Role { get; set; }
 
     }
 }
